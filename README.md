@@ -6,32 +6,6 @@ This repository contains modular Terraform configurations (main.tf, variables.tf
 
 During instance launch, an automated Linux startup script (startup.sh) installs and enables the Apache (httpd) web service and verifies the attached IAM Service Account permissions by querying the provisioned GCS bucket.
 
-Architecture & Provisioned Resources
-
-+-----------------------------------------------------------------------+
-| Google Cloud Platform (GCP) Project                                   |
-|                                                                       |
-|  +-----------------------------------------------------------------+  |
-|  | Custom VPC Network (rhel-custom-vpc)                            |  |
-|  |                                                                 |  |
-|  |  [ Firewall Rule: allow-http-ssh-firewall ]                     |  |
-|  |    └── Allows TCP Port 22 (SSH) & Port 80 (HTTP)                |  |
-|  |                         |                                       |  |
-|  |                         v                                       |  |
-|  |  +-----------------------------------------------------------+  |  |
-|  |  | Compute Engine VM: rhel-web-server (RHEL 9 / e2-medium)   |  |  |
-|  |  |  • Startup Script (startup.sh) -> Installs & runs httpd   |  |  |
-|  |  |  • Attached Identity: rhel-vm-sa (Custom Service Account) |  |  |
-|  |  +-----------------------------------------------------------+  |  |
-|  +---------------------------------|-------------------------------+  |
-|                                    |                                  |
-|                                    | IAM Role: roles/storage.objectViewer
-|                                    v                                  |
-|  +-----------------------------------------------------------------+  |
-|  | Cloud Storage Bucket (rhel-app-storage-bucket-01)               |  |
-|  +-----------------------------------------------------------------+  |
-+-----------------------------------------------------------------------+
-
 
 Core Components
 
